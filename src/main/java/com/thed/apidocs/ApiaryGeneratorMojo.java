@@ -1,10 +1,7 @@
 package com.thed.apidocs;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
@@ -41,14 +38,6 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-
-import com.google.common.collect.Ordering;
-//import com.wordnik.swagger.annotations.Api;
-//import com.wordnik.swagger.annotations.ApiOperation;
-//import com.wordnik.swagger.annotations.ApiParam;
 
 /**
  * Generates apiary documentation
@@ -97,20 +86,9 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
     public List<Resource> generateResourceList(){
 
     	Collection<Class<?>> sortedTypes = getResourceClasses();
-		/*try {
-			sortedTypes = new Util().getClasses(packageName);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}//getResourceClasses();
-*/        List<Resource> list = new ArrayList<Resource>();
+       List<Resource> list = new ArrayList<Resource>();
          	for(Class type : sortedTypes){
-//				System.out.println(type.getName().startsWith(packageName));
  					if(type.getName().startsWith(packageName)) {
-//						System.out.println(type);
 						try {
 							list.add(getResourceMetadata(type));
 						} catch (IOException e) {
@@ -123,11 +101,6 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
     }
     
     public File generateDocFile(List<Resource> list) {
-        //All resources
-//        System.out.println("All resources");
-//        for (Resource resource : list) {
-//			System.out.println(resource.getName());
-//		}
         File file = generateDocs(list);
         return file;
     }
@@ -181,21 +154,15 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		return sl;
 	}
 
-
-	/* Sample annotations -
-	@Service("zephyrTestcase")
-	@Path("/testcase")
-	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Api(value = "/testcase", description = "get testcase by id and criteria")
-	*/
+	/**
+	 * Get Resource Meta Data from Class/Type
+	 * @param clazz
+	 * @return
+	 * @throws IOException
+     */
 	private Resource getResourceMetadata(Class clazz) throws IOException {
 		Resource r = new Resource();
-
 		Annotation[] ann = clazz.getAnnotations() ;
-
-//		Service service = (Service)clazz.getAnnotation(Service.class);
-//		Service s = (Service) service ;
 		Path path = (Path) clazz.getAnnotation(Path.class);
 		Produces produces = (Produces) clazz.getAnnotation(Produces.class);
 		Consumes consumes = (Consumes) clazz.getAnnotation(Consumes.class);
@@ -218,11 +185,15 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 
 		for (Method m: clazz.getDeclaredMethods())  {
 			getOperationMetadata(r, m);
-//			System.out.println("method name--"+m.getName());
 		}
 		return r ;
 	}
 
+	/**
+	 * Get Filtered Resource Name from Original Resource
+	 * @param simpleName
+	 * @return
+     */
 	private String filteredResourceName(String simpleName) {
 		if(simpleName.contains("Schedule")){
 			simpleName = simpleName.replace("Schedule","Execution");
@@ -235,14 +206,13 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		return name ;
 	}
 
-	/*
-	@GET
-	@Path("/{id}")
-	@ApiOperation(value = "Get testcase by ID", //notes = "Add extra notes here",
-					responseClass = "com.thed.rpc.bean.RemoteRepositoryTreeTestcase")
-	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid ID supplied"),
-							@ApiError(code = 404, reason = "Testcase not found") })
-	*/
+	/**
+	 * Get Operation Meta Data from Resource and Method,
+	 * If Method annotation is unavailable pick from resource.
+	 * @param r
+	 * @param m
+	 * @throws IOException
+     */
 	private void getOperationMetadata(Resource r, Method m) throws IOException {
 		Path path = (Path) m.getAnnotation(Path.class);
 
@@ -273,11 +243,6 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 					}else{
 					op.setDescription(api.value());
 				}
-
-
-
-
-			// use Resource's annotation if required
 			if (m.getAnnotation(Produces.class) != null) {
 				Produces produces = (Produces) m.getAnnotation(Produces.class);
 				op.setProduces(StringUtils.join(produces.value(), " "));
@@ -288,7 +253,6 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 					op.setProduces("application/json");
 				};
 			}
-
 			if (m.getAnnotation(Consumes.class) != null) {
 				Consumes consumes = (Consumes) m.getAnnotation(Consumes.class);
 				op.setConsumes(StringUtils.join(consumes.value(), " "));
@@ -311,53 +275,22 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 			}
 	}
 
-	// Get the requst/response from a text file on a particular location src/main/resources/apidocs/<resource>/<method>/<request>/response.json e.g. src/main/resources/apidocs/attachment/getAttachment/GET/response.json
+	/**
+	 * Get Request And Response Json Data from Method Annotation.
+	 * @param r
+	 * @param m
+	 * @param op
+	 * @param reqRes
+	 * @return
+     * @throws IOException
+     */
 	private List<String> getRequestResponse(Resource r, Method m, Operation op, String reqRes) throws IOException {
-//		String file = null;
-//		FileInputStream fstream;
-
-		
-//		if (exampleString.equals("request")) {
-//			if (m.getName().equals("getManifest")) {
-//				file =  basePath + "manifest" + "/" +  m.getName() + "/" + op.getRequestType() +"/" + "request.json";
-//			} else {
-//				file = basePath + r.getPath() + "/" +  m.getName() + "/" + op.getRequestType() +"/" + "request.json";
-//			}
-//		}else {
-//			if (m.getName().equals("getManifest")) {
-//				file = basePath + "manifest" + "/" +  m.getName() + "/" + op.getRequestType() +"/" + "response.json";
-//			} else {
-//				file = basePath + r.getPath() + "/" +  m.getName() + "/" + op.getRequestType() +"/" + "response.json";
-//			}
-//		}
 		List<String> list = new ArrayList<String>();
-
-//		ApiOperation apo = m.getAnnotation(ApiOperation.class);
 		ApiImplicitParams aps = m.getAnnotation(ApiImplicitParams.class);
 		if (aps != null) {
 			ApiImplicitParam[] ap = aps.value();
-
-			//set request dummy json
 			list.add(getJsonData(ap, reqRes));
-//			op.setJsonRequest(jreq);
-//
-//			//set response dummy json
-//			reqRes.add(getJsonData(ap, reqRes));
-//			op.setJsonResponse(jres);
 		}
-
-//		File fileReal = new File(file);
-//		if(!fileReal.exists()) {
-//			return list;
-//		}
-//		fstream = new FileInputStream(file);
-//		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-//		String line;
-//		while ((line = br.readLine()) != null) {
-//			list.add(line);
-//		}
-//		br.close();
-//		fstream.close();
 		return list;
 	}
 	private String getJsonData(ApiImplicitParam[] aps, String jsonType) {
@@ -370,37 +303,25 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		return result;
 	}
 
+	/**
+	 * Get URL Parameter from Resource, Method, Operation
+	 * @param r
+	 * @param op
+     * @param m
+     */
 	private void getUrlParameter(Resource r, Operation op, Method m) {
 		Annotation[][] pa = m.getParameterAnnotations() ;
-//		System.out.println(pa);
-
-		/* E.g. AttachmentResource  */
-		/*
-		public List<RemoteAttachment> getAttachments(
-				@ApiParam(value = "Id of entity which need to be fetched", required = true)
-				@QueryParam("entityid") String entityId,
-				@ApiParam(value = "Entity name, possible values : testcase, requirement, testStepResult, releaseTestSchedule")
-				@QueryParam("entityname") String entityName,
-				@ApiParam(value = "Token stored in cookie, fetched automatically if available", required = false)
-				@CookieParam("token") Cookie tokenFromCookie) throws ZephyrServiceException;
-		*/
 		Class[] params = m.getParameterTypes() ;
-		
 		StringBuilder queryParamsPath = new StringBuilder();
-//		TypeVariable<Method>[] tvm = m.getTypeParameters();
 		for (int i = 0; i < pa.length; i++) {
 			Annotation[] eachParam = pa[i] ;
-			// ignore ApiParam or PathParam or CookieParam ignore
 			QueryParam qpAnnotation = hasQueryParam(eachParam) ;
-			
 			if ( null != qpAnnotation) {
-
 				if (op.getQueryParams() == null) {
 					List<QueryParameter> queryParams = new ArrayList<QueryParameter>();
 					op.setQueryParams(queryParams);
 					
 				}
-//				System.out.println(qpAnnotation.value());
 				QueryParameter qParam = new QueryParameter();
 				qParam.setName(qpAnnotation.value());
 				qParam.setType(params[i].getSimpleName());
@@ -411,7 +332,6 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 			}
 			
 			PathParam pathParamAnno = hasPathParam(eachParam) ;
-			
 			if (null != pathParamAnno) {
 				PathParameter pathParam = new PathParameter();
 				pathParam.setName(pathParamAnno.value());
@@ -424,7 +344,6 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 			
 			
 			Context contextAnnotation = hasContextAnnotation(eachParam) ;
-			
 			if (contextAnnotation != null) {
 				List<String> names = new ArrayList<String>();
 				List<String> types = new ArrayList<String>();
@@ -457,15 +376,19 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 			String path = "{?" + queryParamsPath.deleteCharAt(queryParamsPath.lastIndexOf(","))+"}";
 			op.setPath(op.getPath() + path);
 		}
-//		System.out.println(op.getPath());
-		
-		
 	}
-	
+
+	/**
+	 * Parse Alloweable Values
+	 * @param names
+	 * @param types
+	 * @param descriptions
+	 * @param allowableValues
+     * @return
+     */
 	public int parseAllowableValues(List names, List types, List descriptions, String allowableValues) {
 		String[] params = StringUtils.split(allowableValues, ",");
 		if(params==null) return 0;
-//		allowableValues = "id:number:Id of cycle, name:String: Name of cycle, build:String:Build of cycle, environment:String:Environment of cycle, startDate:Date:Start date of cycle, endDate:Date:End date of cycle, releaseId:Number:Release id of cycle"
 		for(String param : params) {
 			names.add(StringUtils.substringBefore(param, ":"));
 			types.add(StringUtils.substringBetween(param, ":", ":"));
@@ -473,12 +396,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		}
 		return params.length;
 	}
-	
-	private String getApiValue(Annotation[] eachParam) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	/**
+	 * Get Api Alloweable Values
+	 * @param paramAnnotaions
+	 * @return
+     */
 	private String getApiAllowableValues(Annotation[] paramAnnotaions) {
 		for (Annotation ax: paramAnnotaions) {
 			if (ax instanceof ApiParam) {
@@ -487,8 +410,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		}
 		return null ;
 	}
-	
 
+	/**
+	 * Get Api Required Value
+	 * @param paramAnnotaions
+	 * @return
+     */
 	private String getApiRequiredValue(Annotation[] paramAnnotaions) {
 		for (Annotation ax: paramAnnotaions) {
 			if (ax instanceof ApiParam) {
@@ -500,6 +427,11 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		return "required";
 	}
 
+	/**
+	 * Check Query Parameter
+	 * @param paramAnnotaions
+	 * @return
+     */
 	private QueryParam hasQueryParam(Annotation[] paramAnnotaions) {
 		for (Annotation ax: paramAnnotaions) {
 			if (ax instanceof QueryParam) {
@@ -508,6 +440,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		}
 		return null ;
 	}
+
+	/**
+	 * Check Path Parameter
+	 * @param paramAnnotaions
+	 * @return
+     */
 	private PathParam hasPathParam(Annotation[] paramAnnotaions) {
 		for (Annotation ax: paramAnnotaions) {
 			if (ax instanceof PathParam) {
@@ -516,7 +454,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		}
 		return null ;
 	}
-	
+
+	/**
+	 * Check Context Annotation
+	 * @param paramAnnotaions
+	 * @return
+     */
 	private Context hasContextAnnotation(Annotation[] paramAnnotaions) {
 		for (Annotation ax: paramAnnotaions) {
 			if (ax instanceof Context) {
@@ -525,7 +468,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		}
 		return null ;
 	}
-	
+
+	/**
+	 * Get ApiParam Description
+	 * @param paramAnnotaions
+	 * @return
+     */
 	private String getApiDescription(Annotation[] paramAnnotaions) {
 		for (Annotation ax: paramAnnotaions) {
 			if (ax instanceof ApiParam) {
@@ -535,7 +483,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		return " " ;
 	}
 
-	
+
+	/**
+	 * Get Strip Slasses from duplicate
+	 * @param s
+	 * @return
+     */
 	private String supressDuplicateSlash(String s) {
 		if(null != s) {
 			return  s.replaceAll("//", "/");
@@ -544,10 +497,9 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		}
 
 	}
-	
 
     /**
-     *
+     * Generate Apiary Output File from Resource List
      * @param resources
      * @return 
      */
@@ -585,7 +537,7 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
         }
 		return null;
 	}	
-	
+	//Setters, Getters
 	 public String getPackageName() {
 			return packageName;
 		}
