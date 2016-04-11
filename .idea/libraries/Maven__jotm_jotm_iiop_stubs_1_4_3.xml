@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: jotm:jotm-iiop_stubs:1.4.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/jotm/jotm-iiop_stubs/1.4.3/jotm-iiop_stubs-1.4.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/jotm/jotm-iiop_stubs/1.4.3/jotm-iiop_stubs-1.4.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/jotm/jotm-iiop_stubs/1.4.3/jotm-iiop_stubs-1.4.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

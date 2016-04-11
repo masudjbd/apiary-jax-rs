@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: bsh:bsh:1.2b7">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/bsh/bsh/1.2b7/bsh-1.2b7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/bsh/bsh/1.2b7/bsh-1.2b7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/bsh/bsh/1.2b7/bsh-1.2b7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

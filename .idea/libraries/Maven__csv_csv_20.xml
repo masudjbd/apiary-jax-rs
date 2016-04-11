@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: csv:csv:20">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/csv/csv/20/csv-20.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/csv/csv/20/csv-20-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/csv/csv/20/csv-20-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

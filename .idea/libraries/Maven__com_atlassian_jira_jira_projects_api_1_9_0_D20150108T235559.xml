@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.atlassian.jira:jira-projects-api:1.9.0-D20150108T235559">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/jira/jira-projects-api/1.9.0-D20150108T235559/jira-projects-api-1.9.0-D20150108T235559.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/jira/jira-projects-api/1.9.0-D20150108T235559/jira-projects-api-1.9.0-D20150108T235559-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/jira/jira-projects-api/1.9.0-D20150108T235559/jira-projects-api-1.9.0-D20150108T235559-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

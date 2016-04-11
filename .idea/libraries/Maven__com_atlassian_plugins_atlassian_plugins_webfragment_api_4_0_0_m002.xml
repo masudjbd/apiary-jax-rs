@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.atlassian.plugins:atlassian-plugins-webfragment-api:4.0.0-m002">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/plugins/atlassian-plugins-webfragment-api/4.0.0-m002/atlassian-plugins-webfragment-api-4.0.0-m002.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/plugins/atlassian-plugins-webfragment-api/4.0.0-m002/atlassian-plugins-webfragment-api-4.0.0-m002-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/plugins/atlassian-plugins-webfragment-api/4.0.0-m002/atlassian-plugins-webfragment-api-4.0.0-m002-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

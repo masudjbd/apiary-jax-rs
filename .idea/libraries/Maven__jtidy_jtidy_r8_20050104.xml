@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: jtidy:jtidy:r8-20050104">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/jtidy/jtidy/r8-20050104/jtidy-r8-20050104.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/jtidy/jtidy/r8-20050104/jtidy-r8-20050104-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/jtidy/jtidy/r8-20050104/jtidy-r8-20050104-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

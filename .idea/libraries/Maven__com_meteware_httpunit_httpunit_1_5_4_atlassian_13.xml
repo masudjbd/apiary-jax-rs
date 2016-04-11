@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.meteware.httpunit:httpunit:1.5.4-atlassian-13">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/meteware/httpunit/httpunit/1.5.4-atlassian-13/httpunit-1.5.4-atlassian-13.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/meteware/httpunit/httpunit/1.5.4-atlassian-13/httpunit-1.5.4-atlassian-13-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/meteware/httpunit/httpunit/1.5.4-atlassian-13/httpunit-1.5.4-atlassian-13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

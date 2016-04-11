@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.atlassian.activeobjects:activeobjects-plugin:0.30.0-m005">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/activeobjects/activeobjects-plugin/0.30.0-m005/activeobjects-plugin-0.30.0-m005.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/activeobjects/activeobjects-plugin/0.30.0-m005/activeobjects-plugin-0.30.0-m005-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/activeobjects/activeobjects-plugin/0.30.0-m005/activeobjects-plugin-0.30.0-m005-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
