@@ -16,37 +16,40 @@ $DOUBLE_HASH $operation.name [/$operation.path]
 $TRIPLE_HASH $operation.summary [$operation.requestType]
 $operation.description
 
-#if ($operation.pathParam) 
+#if ($operation.pathParam.size()>0)
 + Parameters
+
 #foreach( $pathParam in $operation.pathParam )
     + $pathParam.name ($pathParam.isRequired, $pathParam.type) ... $pathParam.description
 #end
 
 #end
 
-#if ($operation.queryParams) 
+#if ($operation.queryParams.size()>0)
 + Parameters
+
 #foreach( $queryParam in $operation.queryParams )
     + $queryParam.name ($queryParam.isRequired, $queryParam.type) ... $queryParam.description
 #end
 #end
 
-#if ($operation.jsonRequest) 
+#if ($operation.jsonRequest.size()>0)
 + Request (#if($operation.consumes)$operation.consumes#end)
+
 #foreach( $jsonRequestSingleLine in $operation.jsonRequest )
-        $jsonRequestSingleLine
+                $jsonRequestSingleLine
 #end
 
 #end
 
-## end of if operation.jsonRequest
-#if ($operation.jsonResponse)
+#if ($operation.jsonResponse.size()>0)
 + Response $operation.responseCode (#if($operation.produces)$operation.produces#end)
 
 #foreach( $jsonResponseSingleLine in $operation.jsonResponse )
-        $jsonResponseSingleLine
+                $jsonResponseSingleLine
 #end
-
+#else
++ Response 200
 #end
 
 #end

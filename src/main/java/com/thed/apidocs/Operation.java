@@ -3,7 +3,7 @@ package com.thed.apidocs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Operation {
+public class Operation implements Comparable<Operation> {
 	private String name ;
 	private String summary ;
 	private String description ;
@@ -106,7 +106,14 @@ public class Operation {
 		}
 		this.pathParam.add(pathParam);
 	}
-	
+
+
+	@Override
+	public int compareTo(Operation o) {
+		 if(o.path==this.path){return 0;}else{return 1;}
+	}
+
+
 
 }
 
