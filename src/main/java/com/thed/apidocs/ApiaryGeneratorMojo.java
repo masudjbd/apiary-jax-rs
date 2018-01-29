@@ -1,28 +1,5 @@
 package com.thed.apidocs;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.*;
-import java.util.logging.Logger;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-
 import io.swagger.annotations.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -38,6 +15,22 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Generates apiary documentation
@@ -91,8 +84,9 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
  					if(type.getName().startsWith(packageName)) {
 						try {
 							list.add(getResourceMetadata(type));
-						} catch (IOException e) {
+						} catch (Exception e) {
 							e.printStackTrace();
+							System.out.println(e.getMessage());
 						}
 					}
          	}
@@ -297,7 +291,7 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 		String result = "";
 		for(ApiImplicitParam ap: aps){
 			if(ap.name().equals(jsonType)){
-				result = ap.value();
+				result = ap.value().replaceAll("[\t\n\r]", "");
 			}
 		}
 		return result;

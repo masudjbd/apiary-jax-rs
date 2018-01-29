@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://localhost:2990/jira/rest/zephyr/latest
+HOST: http://localhost:2990/jira/rest/zapi/latest
 
 # Zephyr for JIRA API
 Zephyr for Jira(ZFJ) Server REST API allows to access test assets.
