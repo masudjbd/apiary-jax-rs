@@ -177,8 +177,12 @@ public class ApiaryGeneratorMojo extends AbstractMojo {
 			r.setConsumes(StringUtils.join(consumes.value(), " "));
 		}
 
-		for (Method m: clazz.getDeclaredMethods())  {
-			getOperationMetadata(r, m);
+		try {
+			for (Method m : clazz.getDeclaredMethods()) {
+				getOperationMetadata(r, m);
+			}
+		}catch (Exception exception){
+			exception.printStackTrace();
 		}
 		return r ;
 	}

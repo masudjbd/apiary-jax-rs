@@ -112,5 +112,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-beans:2.5.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-core:2.5.6" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.jatl:jatl:0.2.2" level="project" />
+    <orderEntry type="library" name="Maven: atlassian-core:atlassian-core:2006.07.14" level="project" />
+    <orderEntry type="library" name="Maven: com.atlassian.event:atlassian-event:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.5.8" level="project" />
   </component>
 </module>
